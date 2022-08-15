@@ -41,21 +41,18 @@ function playRound(playerSelection, computerSelection) {
 }
 
 
-// function game to reapet function Playround n of times
+// function game to reapet function until somebody reach to 5
 
 function game(){
     
     let player_score = 0 ;
     let computer_score = 0;
     
-    for (let i = 0; i < 5; i++) {
+    while(true) {
         
         const playerSelection = prompt("Enter choice from (rock , paper , scissor): "); //TAKE input from User
         
         const computerSelection = computerPlay();
-        
-        console.log(player_score + " " + computer_score);
-        console.log(playerSelection +  " " + computerSelection);
         
         let func_reslut = playRound(playerSelection, computerSelection);
         
@@ -73,6 +70,13 @@ function game(){
         else {
             console.log("Enter Valid from (rock , paper , scissor)");
         }
+
+        console.log(playerSelection +  " " + computerSelection);
+        
+        console.log(player_score + " " + computer_score);
+        
+        if (player_score == 5|| computer_score == 5)
+            break;
     }
 
     //comparesion between player_score & computer_Score & choose Winner
