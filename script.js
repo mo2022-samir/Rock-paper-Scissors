@@ -1,48 +1,37 @@
+const choices = ["rock","paper","scissor"];
 
 // function to decide computer choice to start game 
 function computerPlay(){
-    let num = Math.random()*100;
-    // console.log(num);
-    let computer_result;
-    if (num > 0 && num < 33){
-        computer_result = "rock";
-    }else if (num > 33 && num < 66){
-        computer_result  = "paper";
-    }else if (num > 66 && num <= 100){
-        computer_result = "scissor";
-    }
-    return computer_result;
-}
+    return choices[Math.floor(Math.random() * choices.length)];}
 
+    // function to decide player choice to start game 
+function player(){
+    const input = prompt("Enter choice from (rock , paper , scissor): "); //TAKE input from User
+    const reform_input = input.toLowerCase();
+    console.log(reform_input);
+    // check input from user
+    if (choices.includes(reform_input))
+        return reform_input;
+    else
+        console.log("Enter valid option [rock , paper , scissor]")
+    
+}
 
 // function to play round from game 
 function playRound(playerSelection, computerSelection) {
-    /* we here declare new variable
-       variable player we create it to make input from insenstive
-       like (Rock, ROCK, rock), so i take variable and convert it.
-    */ 
-    let player = playerSelection.toLowerCase();
-    if (player === 'rock' && computerSelection === 'scissor')
-        return player;
-    else if (player === "paper" && computerSelection === "rock")
-        return player;
-    else if (player === "scissor" && computerSelection === "paper")
-        return player;
-    else if (player === "scissor" && computerSelection === "rock")
-        return computerSelection;
-    else if (player === "paper" && computerSelection === "scissor")
-        return computerSelection;
-    else if (player === "rock" && computerSelection === "paper")
-        return computerSelection;
-    else if (player ===  computerSelection)
+    if (playerSelection ===  computerSelection)
         return 0;
-    else
-        return null;
+    else if ( 
+        (playerSelection === 'rock' && computerSelection === 'scissor')||
+        (playerSelection === "paper" && computerSelection === "rock")||
+        (playerSelection === "scissor" && computerSelection === "paper")      
+    )   {
+        return playerSelection;
+    } else
+        return computerSelection;
 }
 
-
 // function game to reapet function until somebody reach to 5
-
 function game(){
     
     let player_score = 0 ;
@@ -50,44 +39,42 @@ function game(){
     
     while(true) {
         
-        const playerSelection = prompt("Enter choice from (rock , paper , scissor): "); //TAKE input from User
-        
+        const playerSelection = player();
         const computerSelection = computerPlay();
         
         let func_reslut = playRound(playerSelection, computerSelection);
         
-        if (func_reslut === playerSelection.toLowerCase()) {
+        if (func_reslut === playerSelection) 
             player_score++;
-            console.log("You win! " + playerSelection.toLowerCase() + " beats " + computerSelection);
-        } 
-        else if (func_reslut === computerSelection){
+        else if (func_reslut === computerSelection)
             computer_score++;
-            console.log("You lose! " + computerSelection + " beats " + playerSelection.toLowerCase());
-        } 
-        else if (playerSelection.toLowerCase() === computerSelection){
-            console.log("Draw " + playerSelection + " equal " + computerSelection);   
-        } 
-        else {
-            console.log("Enter Valid from (rock , paper , scissor)");
-        }
-
-        console.log(playerSelection +  " " + computerSelection);
+        else 
+            console.log("Tie");    
         
-        console.log(player_score + " " + computer_score);
         
+        console.log("player choice : " + playerSelection +  "\n" 
+                    + "computer choice : " + computerSelection);
+        console.log( "player score : " + player_score + "\n" 
+                    + "computer score :" + computer_score);
+                    
+        // check score for everyone if reach 5
         if (player_score == 5|| computer_score == 5)
             break;
     }
 
     //comparesion between player_score & computer_Score & choose Winner
     if (player_score > computer_score) {
-        console.log("You Win Competetation " + "PLAYER SCORE = " + player_score + " , COMPUTER SCORE = " + computer_score);
+        console.log("You Win Competetation " + "PLAYER SCORE = " +
+        player_score + " , COMPUTER SCORE = " + computer_score);
     } 
     else if (player_score === computer_score){
-        console.log("Draw, Try Again " + "PLAYER SCORE = " + player_score + " , COMPUTER SCORE = " + computer_score);
+        console.log("Draw, Try Again " + "PLAYER SCORE = " + 
+        player_score + " , COMPUTER SCORE = " + computer_score);
     }
     else{
-        console.log("You Lose Competetation, Computer Win " + "PLAYER SCORE = " + player_score + " , COMPUTER SCORE = " + computer_score);
+        console.log("You Lose Competetation, Computer Win " + 
+        "PLAYER SCORE = " + player_score + " , COMPUTER SCORE = " +
+        computer_score);
     }
 }
 
